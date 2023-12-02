@@ -1,7 +1,9 @@
+// parse converts the newline separated string into an array of strings split by newline
 export function parse(input: string) : string[] {
   return input.split('\n')
 }
 
+// partOne processes our input to return the solution of part 1
 export function partOne(input: ReturnType<typeof parse>) : number {
   let result: number = 0
 
@@ -12,6 +14,7 @@ export function partOne(input: ReturnType<typeof parse>) : number {
   return result
 }
 
+// partTwo processes our input to return the solution of part 2
 export function partTwo(input: ReturnType<typeof parse>) : number {
   let result: number = 0
 
@@ -22,13 +25,19 @@ export function partTwo(input: ReturnType<typeof parse>) : number {
   return result
 }
 
+// parseRunes iterates over the runes (code points) of a string, checks if they are digits, and combines the first/last
+// digits into a 2-digit number
 export function parseRunes(input: string) : number {
+  // instantiate our local vars
   let foundFirst: boolean = false
   let first: number = 0
   let last: number = 0
 
+  // iterate over every character
   for (let i = 0; i < input.length; i++) {
+    // read the char as a rune
     let rune = input.charCodeAt(i)
+    // handle if the rune is the codepoint for a number
     if (rune >= 48 && rune <= 57) {
       if (!foundFirst ){
         foundFirst = true
@@ -40,9 +49,12 @@ export function parseRunes(input: string) : number {
     }
   }
 
+  // convert digits into 2 digit number
   return first * 10 + last
 }
 
+// findValidNumbers searches for valid substrings contained within the input
+// first and last valid numbers are combined into a 2-digit number
 export function findValidNumbers(input: string) : number {
   // default of 0 in case no values present
   let first: number = 0
@@ -82,11 +94,13 @@ export function findValidNumbers(input: string) : number {
       let firstPos: number = input.indexOf(key)
       let lastPos: number = input.lastIndexOf(key)
 
+      // update first value if key appears before previous entries
       if (firstPos < firstIdx) {
         first = valid.get(key)
         firstIdx = firstPos
       }
 
+      // update last value if key appears after previous entries
       if (lastPos > lastIdx) {
         last = valid.get(key)
         lastIdx = lastPos
@@ -94,5 +108,6 @@ export function findValidNumbers(input: string) : number {
     }
   }
 
+  // convert digits into 2 digit number
   return first * 10 + last
 }
