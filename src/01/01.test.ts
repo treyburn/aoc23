@@ -52,7 +52,7 @@ describe('Day 1', () => {
         {name:'fifth', input: '4nineeightseven2', want: 42},
         {name:'sixth', input: 'zoneight234', want: 14},
         {name:'seventh', input: '7pqrstsixteen', want: 76},
-        {name: 'overlap', input: 'onetwone', want: 11}
+        {name: 'overlap', input: 'onetwone', want: 11} // this ensures we dont miss edge cases where numbers overlap with characters
       ]
 
       for (const t of tests) {
