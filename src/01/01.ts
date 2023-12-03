@@ -1,10 +1,10 @@
 // parse converts the newline separated string into an array of strings split by newline
-export function parse(input: string) : string[] {
+export function parse(input: string): string[] {
   return input.split('\n')
 }
 
 // partOne processes our input to return the solution of part 1
-export function partOne(input: ReturnType<typeof parse>) : number {
+export function partOne(input: ReturnType<typeof parse>): number {
   let result: number = 0
 
   for (const line of input) {
@@ -15,7 +15,7 @@ export function partOne(input: ReturnType<typeof parse>) : number {
 }
 
 // partTwo processes our input to return the solution of part 2
-export function partTwo(input: ReturnType<typeof parse>) : number {
+export function partTwo(input: ReturnType<typeof parse>): number {
   let result: number = 0
 
   for (const line of input) {
@@ -27,7 +27,7 @@ export function partTwo(input: ReturnType<typeof parse>) : number {
 
 // parseRunes iterates over the runes (code points) of a string, checks if they are digits, and combines the first/last
 // digits into a 2-digit number
-export function parseRunes(input: string) : number {
+export function parseRunes(input: string): number {
   // instantiate our local vars
   let foundFirst: boolean = false
   let first: number = 0
@@ -39,7 +39,7 @@ export function parseRunes(input: string) : number {
     let rune = input.charCodeAt(i)
     // handle if the rune is the codepoint for a number
     if (rune >= 48 && rune <= 57) {
-      if (!foundFirst ){
+      if (!foundFirst) {
         foundFirst = true
         first = rune - 48
         last = rune - 48
@@ -55,7 +55,7 @@ export function parseRunes(input: string) : number {
 
 // findValidNumbers searches for valid substrings contained within the input
 // first and last valid numbers are combined into a 2-digit number
-export function findValidNumbers(input: string) : number {
+export function findValidNumbers(input: string): number {
   // default of 0 in case no values present
   let first: number = 0
   let last: number = 0
@@ -66,27 +66,27 @@ export function findValidNumbers(input: string) : number {
 
   // lookup table of valid answers
   const valid: Map<string, number> = new Map<string, number>([
-      ['zero', 0],
-      ['0', 0],
-      ['one', 1],
-      ['1', 1],
-      ['two', 2],
-      ['2', 2],
-      ['three', 3],
-      ['3', 3],
-      ['four', 4],
-      ['4', 4],
-      ['five', 5],
-      ['5', 5],
-      ['six', 6],
-      ['6', 6],
-      ['seven', 7],
-      ['7', 7],
-      ['eight', 8],
-      ['8', 8],
-      ['nine', 9],
-      ['9', 9],
-  ]);
+    ['zero', 0],
+    ['0', 0],
+    ['one', 1],
+    ['1', 1],
+    ['two', 2],
+    ['2', 2],
+    ['three', 3],
+    ['3', 3],
+    ['four', 4],
+    ['4', 4],
+    ['five', 5],
+    ['5', 5],
+    ['six', 6],
+    ['6', 6],
+    ['seven', 7],
+    ['7', 7],
+    ['eight', 8],
+    ['8', 8],
+    ['nine', 9],
+    ['9', 9]
+  ])
 
   // iterate over keys
   for (const key of valid.keys()) {

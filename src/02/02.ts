@@ -7,13 +7,13 @@ export function parse(input: string): Game[] {
   return games
 }
 
-export function parseGame(input: string) : Game {
+export function parseGame(input: string): Game {
   let matches = input.trim().match(/^Game (\d+): (.+)$/)
   const gameID = parseInt(matches[1]) || 1
-  let rounds: Map<string, number>[] = [];
+  let rounds: Map<string, number>[] = []
 
   matches[2].split(';').map(roundStr => {
-    let round= new Map<string, number>;
+    let round = new Map<string, number>()
     roundStr.split(',').map(r => {
       const m = r.match(/(\d+) (.+)$/)
       if (m && m.length == 3) {
@@ -23,13 +23,15 @@ export function parseGame(input: string) : Game {
     rounds.push(round)
   })
 
-  return {id: gameID, rounds: rounds}
+  return { id: gameID, rounds: rounds }
 }
 
-export function isLegal(input: Game) : boolean {
-  const legal = new Map<string, number>(
-      [["green", 13], ["blue", 14], ["red", 12]]
-  )
+export function isLegal(input: Game): boolean {
+  const legal = new Map<string, number>([
+    ['green', 13],
+    ['blue', 14],
+    ['red', 12]
+  ])
 
   for (const round of input.rounds) {
     for (const [color, value] of legal) {
@@ -44,20 +46,20 @@ export function isLegal(input: Game) : boolean {
   return true
 }
 
-export function cubePower(input: Game) : Number {
+export function cubePower(input: Game): Number {
   let maxGreen = 1
   let maxBlue = 1
   let maxRed = 1
 
   input.rounds.map(round => {
-    if (round.has("green") && round.get("green") > maxGreen) {
-      maxGreen = round.get("green") || maxGreen
+    if (round.has('green') && round.get('green') > maxGreen) {
+      maxGreen = round.get('green') || maxGreen
     }
-    if (round.has("blue") && round.get("blue") > maxBlue) {
-      maxBlue = round.get("blue") || maxBlue
+    if (round.has('blue') && round.get('blue') > maxBlue) {
+      maxBlue = round.get('blue') || maxBlue
     }
-    if (round.has("red") && round.get("red") > maxRed) {
-      maxRed = round.get("red") || maxRed
+    if (round.has('red') && round.get('red') > maxRed) {
+      maxRed = round.get('red') || maxRed
     }
   })
 
@@ -65,24 +67,25 @@ export function cubePower(input: Game) : Number {
 }
 
 export function partOne(input: ReturnType<typeof parse>): number {
-  let result: number = 0;
+  let result: number = 0
 
-  input.map(game => game)
-      .filter(game => isLegal(game))
-      .map(game => result += game.id)
+  input
+    .map(game => game)
+    .filter(game => isLegal(game))
+    .map(game => (result += game.id))
 
   return result
 }
 
-export function partTwo(input: ReturnType<typeof parse>) : number {
-  let result: number = 0;
+export function partTwo(input: ReturnType<typeof parse>): number {
+  let result: number = 0
 
-  input.map(game => result += cubePower(game))
+  input.map(game => (result += cubePower(game)))
 
   return result
 }
 
 export type Game = {
-  id: number,
+  id: number
   rounds: Map<string, number>[]
 }
