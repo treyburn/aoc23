@@ -41,7 +41,6 @@ For each day a directory in `src` is created with the following structure:
 📂 01
 ├── 📜 01.ts
 ├── 📜 01.test.ts
-├── 📜 example.txt
 └── 📜 input.txt
 ```
 
