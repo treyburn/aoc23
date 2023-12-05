@@ -43,17 +43,6 @@ describe('Day 3', () => {
     expect(boundary.Down).toBe(wantRows)
   })
 
-  // `467..114..
-  //  ...*......
-  //  ..35..633.
-  //  ......#...
-  //  617*......
-  //  .....+.580
-  //  ..592.....
-  //  ......755.
-  //  ...$.*....
-  //  .664.598..`
-
   describe('buildBorder', () => {
     type testCase = {
       name: string
