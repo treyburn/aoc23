@@ -9,5 +9,6 @@ export function fetchInput({ day, year }: { day: number; year: number }) {
     headers
   })
     .then(isOk)
-    .then(response => response.text()).then(response => response.trim())
+    .then(response => response.text())
+    .then(response => response.trim())
 }

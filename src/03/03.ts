@@ -1,4 +1,4 @@
-export function parse(input: string) : string[][] {
+export function parse(input: string): string[][] {
   let result: string[][] = []
   input.split('\n').map(line => {
     let row: string[] = []
@@ -8,7 +8,7 @@ export function parse(input: string) : string[][] {
   return result
 }
 
-export function partOne(input: ReturnType<typeof parse>) : number {
+export function partOne(input: ReturnType<typeof parse>): number {
   let result = 0
   const parts = findPartNumbers(input)
   parts.map(part => {
@@ -20,7 +20,7 @@ export function partOne(input: ReturnType<typeof parse>) : number {
   return result
 }
 
-export function partTwo(input: ReturnType<typeof parse>) : number {
+export function partTwo(input: ReturnType<typeof parse>): number {
   return 0
 }
 
@@ -29,27 +29,26 @@ export function calculateBounds(input: string[][]): Bounds {
   const rowCount = input.length
   const charCount = input[0].length
 
-  return {Up: 0, Down: rowCount - 1, Left: 0, Right: charCount - 1}
+  return { Up: 0, Down: rowCount - 1, Left: 0, Right: charCount - 1 }
 }
 
 export type Bounds = {
-  Up: number,
-  Down: number,
-  Left: number,
+  Up: number
+  Down: number
+  Left: number
   Right: number
 }
 
-export function findPartNumbers(input: string[][]) : PartNumber[] {
+export function findPartNumbers(input: string[][]): PartNumber[] {
   let parts: PartNumber[] = []
 
   const boundary = calculateBounds(input)
-  let strNum = ""
+  let strNum = ''
   let start = 0
   let end = 0
 
   // iterate over each row and look for part numbers
   for (let i = 0; i <= boundary.Down; i++) {
-
     // iterate over each char in the row and build the part number
     for (let j = 0; j <= boundary.Right; j++) {
       // cast char to rune so that we can check if it's a number
@@ -70,14 +69,14 @@ export function findPartNumbers(input: string[][]) : PartNumber[] {
         end = j - 1
         let partNum = parseInt(strNum) || 0
         let partBorder = buildBorder(input, i, start, end)
-        let part = {Value: partNum, Border: partBorder}
+        let part = { Value: partNum, Border: partBorder }
         parts.push(part)
         // set strNum back to empty
-        strNum = ""
+        strNum = ''
       }
 
       // not a number - so continue
-      strNum = ""
+      strNum = ''
     }
 
     // handle parts numbers that ended at right border
@@ -85,16 +84,21 @@ export function findPartNumbers(input: string[][]) : PartNumber[] {
       end = boundary.Right
       let partNum = parseInt(strNum) || 0
       let partBorder = buildBorder(input, i, start, end)
-      let part = {Value: partNum, Border: partBorder}
+      let part = { Value: partNum, Border: partBorder }
       parts.push(part)
-      strNum = ""
+      strNum = ''
     }
   }
 
   return parts
 }
 
-export function buildBorder(input: string[][], row: number, cLeft: number, cRight: number) : string[] {
+export function buildBorder(
+  input: string[][],
+  row: number,
+  cLeft: number,
+  cRight: number
+): string[] {
   let border: string[] = []
   const boundary = calculateBounds(input)
 
@@ -109,7 +113,10 @@ export function buildBorder(input: string[][], row: number, cLeft: number, cRigh
 
   // not on top row
   if (row > boundary.Up) {
-    input.at(row - 1).slice(left, right + 1).map(char => border.push(char))
+    input
+      .at(row - 1)
+      .slice(left, right + 1)
+      .map(char => border.push(char))
   }
 
   // not at left bound
@@ -124,17 +131,20 @@ export function buildBorder(input: string[][], row: number, cLeft: number, cRigh
 
   // not on bottom row
   if (row < boundary.Down) {
-    input.at(row+1).slice(left, right + 1).map(char => border.push(char))
+    input
+      .at(row + 1)
+      .slice(left, right + 1)
+      .map(char => border.push(char))
   }
 
   return border
 }
 
-export function isValidPartNumber(part: PartNumber):boolean {
+export function isValidPartNumber(part: PartNumber): boolean {
   let foundSymbol = false
 
   part.Border.map(char => {
-    if (char !== ".") {
+    if (char !== '.') {
       foundSymbol = true
     }
   })
@@ -142,8 +152,7 @@ export function isValidPartNumber(part: PartNumber):boolean {
   return foundSymbol
 }
 
-
 export type PartNumber = {
-  Value: number,
-  Border: string[],
+  Value: number
+  Border: string[]
 }

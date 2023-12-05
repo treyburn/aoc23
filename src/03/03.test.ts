@@ -1,4 +1,4 @@
-import {describe, expect, test} from 'bun:test'
+import { describe, expect, test } from 'bun:test'
 import {
   buildBorder,
   calculateBounds,
@@ -43,36 +43,90 @@ describe('Day 3', () => {
     expect(boundary.Down).toBe(wantRows)
   })
 
-// `467..114..
-//  ...*......
-//  ..35..633.
-//  ......#...
-//  617*......
-//  .....+.580
-//  ..592.....
-//  ......755.
-//  ...$.*....
-//  .664.598..`
+  // `467..114..
+  //  ...*......
+  //  ..35..633.
+  //  ......#...
+  //  617*......
+  //  .....+.580
+  //  ..592.....
+  //  ......755.
+  //  ...$.*....
+  //  .664.598..`
 
   describe('buildBorder', () => {
     type testCase = {
-      name: string,
-      row: number,
-      left: number,
-      right: number,
-      want: string[],
+      name: string
+      row: number
+      left: number
+      right: number
+      want: string[]
     }
 
     const tests: testCase[] = [
-      {name: "top left", row: 0, left: 0, right: 2, want: [".", ".", ".", ".", "*"]},
-      {name: "top", row: 0, left: 1, right: 3, want: ["4", ".", ".", ".", ".", "*", "."]},
-      {name: "top right", row: 0, left: 7, right: 9, want: ["1", ".", ".", ".", "."]},
-      {name: "middle left", row: 4, left: 0, right: 2, want: [".", ".", ".", ".", "*", ".", ".", ".", "."]},
-      {name: " middle", row: 4, left: 2, right: 4, want: [".", ".", ".", ".", ".", "1", ".", ".", ".", ".", ".", "+"]},
-      {name: "middle right", row: 4, left: 7, right: 9, want: ["#", ".", ".", ".", ".", ".", "5", "8", "."]},
-      {name: "bottom left", row: 9, left: 0, right: 2, want: [".", ".", ".", "$", "4"]},
-      {name: "bottom", row: 9, left: 1, right: 3, want: [".", ".", ".", "$", ".", ".", "."]},
-      {name: "bottom right", row: 9, left: 7, right: 9, want: [".", ".", ".", ".", "9"]},
+      {
+        name: 'top left',
+        row: 0,
+        left: 0,
+        right: 2,
+        want: ['.', '.', '.', '.', '*']
+      },
+      {
+        name: 'top',
+        row: 0,
+        left: 1,
+        right: 3,
+        want: ['4', '.', '.', '.', '.', '*', '.']
+      },
+      {
+        name: 'top right',
+        row: 0,
+        left: 7,
+        right: 9,
+        want: ['1', '.', '.', '.', '.']
+      },
+      {
+        name: 'middle left',
+        row: 4,
+        left: 0,
+        right: 2,
+        want: ['.', '.', '.', '.', '*', '.', '.', '.', '.']
+      },
+      {
+        name: ' middle',
+        row: 4,
+        left: 2,
+        right: 4,
+        want: ['.', '.', '.', '.', '.', '1', '.', '.', '.', '.', '.', '+']
+      },
+      {
+        name: 'middle right',
+        row: 4,
+        left: 7,
+        right: 9,
+        want: ['#', '.', '.', '.', '.', '.', '5', '8', '.']
+      },
+      {
+        name: 'bottom left',
+        row: 9,
+        left: 0,
+        right: 2,
+        want: ['.', '.', '.', '$', '4']
+      },
+      {
+        name: 'bottom',
+        row: 9,
+        left: 1,
+        right: 3,
+        want: ['.', '.', '.', '$', '.', '.', '.']
+      },
+      {
+        name: 'bottom right',
+        row: 9,
+        left: 7,
+        right: 9,
+        want: ['.', '.', '.', '.', '9']
+      }
     ]
 
     for (const t of tests) {
@@ -88,16 +142,24 @@ describe('Day 3', () => {
       expect(findPartNumbers(testInput).length).toBe(wantPartNums)
     })
 
-    describe("isValidPartNumber", () => {
+    describe('isValidPartNumber', () => {
       type testCase = {
-        name: string,
-        input: PartNumber,
-        want: boolean,
+        name: string
+        input: PartNumber
+        want: boolean
       }
 
       const tests: testCase[] = [
-        {name: "has symbol", input: {Value: 0, Border: ["?", ".", "."]}, want: true},
-        {name: "lacks symbol", input: {Value: 0, Border: [".", ".", "."]}, want: false},
+        {
+          name: 'has symbol',
+          input: { Value: 0, Border: ['?', '.', '.'] },
+          want: true
+        },
+        {
+          name: 'lacks symbol',
+          input: { Value: 0, Border: ['.', '.', '.'] },
+          want: false
+        }
       ]
 
       for (const t of tests) {
@@ -112,7 +174,7 @@ describe('Day 3', () => {
       expect(partOne(testInput)).toBe(wantSum)
     })
   })
-  
+
   describe('Part Two', () => {
     const wantGearRatio = 467835
     test('partTwo', () => {
