@@ -47,7 +47,7 @@ export function parse(input: string): Almanac {
     channels.push(chan)
   }
 
-  return {Seeds: seeds, Funnel: channels}
+  return { Seeds: seeds, Funnel: channels }
 }
 
 export function partOne(input: ReturnType<typeof parse>): number {
@@ -89,12 +89,14 @@ export function partTwo(input: ReturnType<typeof parse>): number {
       // for debug purposes
       count++
       if (count % 25_000_000 == 0) {
-        console.log(`${Date()} iteration ${i/2} in progress: counted ${count}`)
+        console.log(
+          `${Date()} iteration ${i / 2} in progress: counted ${count}`
+        )
       }
       // check previous ranges and see if value is present
       let shouldSkip = false
       for (let k = 0; k < i; k += 2) {
-        if (j >= input.Seeds[k] && j <= (input.Seeds[k] + input.Seeds[k + 1])) {
+        if (j >= input.Seeds[k] && j <= input.Seeds[k] + input.Seeds[k + 1]) {
           shouldSkip = true
           break
         }
@@ -106,7 +108,9 @@ export function partTwo(input: ReturnType<typeof parse>): number {
       }
       const got = processSeed(j, input.Funnel)
       if (!got) {
-        console.log(`Received an invalid output for seed #${j} on iteration ${i/2}`)
+        console.log(
+          `Received an invalid output for seed #${j} on iteration ${i / 2}`
+        )
       }
 
       // set min if not yet set
@@ -129,14 +133,14 @@ export function partTwo(input: ReturnType<typeof parse>): number {
 }
 
 export type Almanac = {
-  Seeds: number[],
+  Seeds: number[]
   Funnel: Channel[]
 }
 
 export type LookupMap = {
-  Destination: number,
-  Source: number,
-  Range: number,
+  Destination: number
+  Source: number
+  Range: number
 }
 
 export type Channel = (num: number) => number
@@ -182,7 +186,7 @@ export function parseLookupMap(input: string[]): LookupMap[] {
     const src = parseInt(lookupToParse[2])
     const range = parseInt(lookupToParse[3])
 
-    result.push({Destination: dst, Source: src, Range: range})
+    result.push({ Destination: dst, Source: src, Range: range })
   })
 
   return result

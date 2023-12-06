@@ -1,9 +1,16 @@
-import {describe, expect, test} from 'bun:test'
-import {buildChannel, parse, parseLookupMap, parseSeeds, partOne, partTwo, processSeed} from "@/05/05.ts";
+import { describe, expect, test } from 'bun:test'
+import {
+  buildChannel,
+  parse,
+  parseLookupMap,
+  parseSeeds,
+  partOne,
+  partTwo,
+  processSeed
+} from '@/05/05.ts'
 
 describe('Day 5', () => {
-  const testInputText =
-`seeds: 79 14 55 13
+  const testInputText = `seeds: 79 14 55 13
 
 seed-to-soil map:
 50 98 2
@@ -50,7 +57,7 @@ humidity-to-location map:
     test('parseSeeds', () => {
       const input = '79 14 55 13'
       const wantSeedCount = 4
-      const wantSeeds = [79, 14, 55, 13,]
+      const wantSeeds = [79, 14, 55, 13]
       const got = parseSeeds(input)
       expect(got.length).toBe(wantSeedCount)
       expect(got).toEqual(wantSeeds)
@@ -60,9 +67,9 @@ humidity-to-location map:
       const input = ['0 15 37', '37 52 2', '39 0 15']
       const wantLookupLength = 3
       const wantLookupMap = [
-          {Destination: 0, Source: 15, Range: 37},
-        {Destination: 37, Source: 52, Range: 2},
-        {Destination: 39, Source: 0, Range: 15},
+        { Destination: 0, Source: 15, Range: 37 },
+        { Destination: 37, Source: 52, Range: 2 },
+        { Destination: 39, Source: 0, Range: 15 }
       ]
 
       const got = parseLookupMap(input)
@@ -72,8 +79,8 @@ humidity-to-location map:
 
     test('buildChannel', () => {
       const testLookupMaps = [
-        {Destination: 50, Source: 98, Range: 2},
-        {Destination: 52, Source: 50, Range: 48},
+        { Destination: 50, Source: 98, Range: 2 },
+        { Destination: 52, Source: 50, Range: 48 }
       ]
 
       const testSeeds = [79, 14, 55, 13]
@@ -85,7 +92,6 @@ humidity-to-location map:
         expect(chan(testSeeds[i])).toBe(wantOutputs[i])
       }
     })
-
   })
 
   const day5TestInput = parse(testInputText)
@@ -105,7 +111,7 @@ humidity-to-location map:
       expect(partOne(day5TestInput)).toBe(wantOutput)
     })
   })
-  
+
   describe('Part Two', () => {
     test('partTwo', () => {
       const wantOutput = 46
