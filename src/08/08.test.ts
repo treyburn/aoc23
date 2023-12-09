@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { countSteps, parse, partOne, partTwo, partTwoLCD } from '@/08/08.ts'
+import { countSteps, parse, partOne, partTwo } from '@/08/08.ts'
 
 describe('Day 8', () => {
   const testInputText1 = `RL
