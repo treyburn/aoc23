@@ -4,6 +4,7 @@ import {
   HandType,
   parse,
   partOne,
+  partTwo,
   scoreHands,
   sortByScores
 } from '@/07/07.ts'
@@ -115,5 +116,61 @@ QQQJA 483`
     })
   })
 
-  describe('Part Two', () => {})
+  describe('Part Two', () => {
+    describe('re-score with wildcards', () => {
+      const tests = [
+        {
+          Name: 'First',
+          Hand: { Cards: '32T3K', Bid: 0 },
+          Want: HandType.OnePair
+        },
+        {
+          Name: 'Second',
+          Hand: { Cards: 'T55J5', Bid: 0 },
+          Want: HandType.FourKind
+        },
+        {
+          Name: 'Third',
+          Hand: { Cards: 'KK677', Bid: 0 },
+          Want: HandType.TwoPair
+        },
+        {
+          Name: 'Forth',
+          Hand: { Cards: 'KTJJT', Bid: 0 },
+          Want: HandType.FourKind
+        },
+        {
+          Name: 'Fifth',
+          Hand: { Cards: 'QQQJA', Bid: 0 },
+          Want: HandType.FourKind
+        }
+      ]
+
+      tests.map(t => {
+        test(t.Name, () => {
+          expect(calculateHandType(t.Hand, true)).toBe(t.Want)
+        })
+      })
+    })
+
+    test('re-sort with wildcards', () => {
+      const wantSorted = [
+        { Hand: { Cards: '32T3K', Bid: 765 }, Type: HandType.OnePair },
+        { Hand: { Cards: 'KK677', Bid: 28 }, Type: HandType.TwoPair },
+        { Hand: { Cards: 'T55J5', Bid: 684 }, Type: HandType.FourKind },
+        { Hand: { Cards: 'QQQJA', Bid: 483 }, Type: HandType.FourKind },
+        { Hand: { Cards: 'KTJJT', Bid: 220 }, Type: HandType.FourKind }
+      ]
+
+      expect(sortByScores(scoreHands(testInput, true), true)).toEqual(
+        wantSorted
+      )
+    })
+
+    test('PartTwo', () => {
+      const wantResult = 5905
+
+      expect(partTwo(testInput)).toBe(wantResult)
+    })
+  })
 })
