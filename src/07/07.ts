@@ -16,7 +16,16 @@ export function partOne(input: ReturnType<typeof parse>): number {
   return result
 }
 
-export function partTwo(input: ReturnType<typeof parse>) {}
+export function partTwo(input: ReturnType<typeof parse>) {
+  let result = 0
+
+  const sorted = sortByScores(scoreHands(input, true), true)
+  for (let i = 0; i < sorted.length; i++) {
+    result += sorted[i].Hand.Bid * (i + 1)
+  }
+
+  return result
+}
 
 export enum HandType {
   FiveKind,
@@ -38,12 +47,17 @@ export type ScoredHand = {
   Type: HandType
 }
 
-export function calculateHandType(hand: Hand): HandType {
+export function calculateHandType(hand: Hand, useWildcards = false): HandType {
   let draw = new Map<string, number>()
+  let wildCards = 0
   hand.Cards.split('').map(char => {
     let count = 1
+    if (useWildcards && char == 'J') {
+      wildCards++
+      return
+    }
     if (draw.has(char)) {
-      count += draw.get(char)
+      count += draw.get(char) || 0
     }
     draw.set(char, count)
   })
@@ -55,6 +69,10 @@ export function calculateHandType(hand: Hand): HandType {
   }
 
   values.sort().reverse()
+
+  if (useWildcards) {
+    values[0] += wildCards
+  }
 
   if (values.length == 1) {
     return HandType.FiveKind
@@ -79,20 +97,28 @@ export function calculateHandType(hand: Hand): HandType {
   return HandType.HighCard
 }
 
-export function scoreHands(hands: Hand[]): ScoredHand[] {
+export function scoreHands(hands: Hand[], useWildCards = false): ScoredHand[] {
   let result: ScoredHand[] = []
 
   hands.map(hand => {
-    const score = calculateHandType(hand)
+    const score = calculateHandType(hand, useWildCards)
     result.push({ Hand: hand, Type: score })
   })
 
   return result
 }
 
-export function sortByScores(hands: ScoredHand[]): ScoredHand[] {
+export function sortByScores(
+  hands: ScoredHand[],
+  useWildCards = false
+): ScoredHand[] {
   hands.sort((a, b) => {
-    const orderedValueOfCards = 'AKQJT98765432'
+    let orderedValueOfCards: string
+    if (useWildCards) {
+      orderedValueOfCards = 'AKQT98765432J'
+    } else {
+      orderedValueOfCards = 'AKQJT98765432'
+    }
     if (a.Type > b.Type) {
       return -1
     }
@@ -103,11 +129,15 @@ export function sortByScores(hands: ScoredHand[]): ScoredHand[] {
     for (let i = 0; i < a.Hand.Cards.length; i++) {
       const aCard = a.Hand.Cards.charAt(i)
       const bCard = b.Hand.Cards.charAt(i)
-      if (orderedValueOfCards.indexOf(aCard) > orderedValueOfCards.indexOf(bCard)) {
+      if (
+        orderedValueOfCards.indexOf(aCard) > orderedValueOfCards.indexOf(bCard)
+      ) {
         return -1
       }
 
-      if (orderedValueOfCards.indexOf(aCard) < orderedValueOfCards.indexOf(bCard)) {
+      if (
+        orderedValueOfCards.indexOf(aCard) < orderedValueOfCards.indexOf(bCard)
+      ) {
         return 1
       }
     }
