@@ -9,7 +9,7 @@ export function partOne(input: ReturnType<typeof parse>): number {
   let result = 0
 
   const sorted = sortByScores(scoreHands(input))
-  for (let i = 0; i < sorted.length ; i++) {
+  for (let i = 0; i < sorted.length; i++) {
     result += sorted[i].Hand.Bid * (i + 1)
   }
 
@@ -56,7 +56,6 @@ export function calculateHandType(hand: Hand): HandType {
 
   values.sort().reverse()
 
-
   if (values.length == 1) {
     return HandType.FiveKind
   }
@@ -85,7 +84,7 @@ export function scoreHands(hands: Hand[]): ScoredHand[] {
 
   hands.map(hand => {
     const score = calculateHandType(hand)
-    result.push({Hand: hand, Type: score})
+    result.push({ Hand: hand, Type: score })
   })
 
   return result
@@ -93,28 +92,27 @@ export function scoreHands(hands: Hand[]): ScoredHand[] {
 
 export function sortByScores(hands: ScoredHand[]): ScoredHand[] {
   hands.sort((a, b) => {
+    const orderedValueOfCards = 'AKQJT98765432'
     if (a.Type > b.Type) {
       return -1
     }
     if (a.Type < b.Type) {
       return 1
     }
-    for (let i = 0; i < 5; i++) {
-      const aCard = a.Hand.Cards[i].charCodeAt(i)
-      const bCard = b.Hand.Cards[i].charCodeAt(i)
-      if (aCard < 58 && bCard > 58) {
+
+    for (let i = 0; i < a.Hand.Cards.length; i++) {
+      const aCard = a.Hand.Cards.charAt(i)
+      const bCard = b.Hand.Cards.charAt(i)
+      if (orderedValueOfCards.indexOf(aCard) > orderedValueOfCards.indexOf(bCard)) {
         return -1
       }
-      if (aCard > 58 && bCard < 58) {
-        return 1
-      }
-      if (aCard > bCard) {
-        return -1
-      }
-      if (aCard < bCard) {
+
+      if (orderedValueOfCards.indexOf(aCard) < orderedValueOfCards.indexOf(bCard)) {
         return 1
       }
     }
+
+    // shouldn't reach - but does this matter??
     return 0
   })
 
