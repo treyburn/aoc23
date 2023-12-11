@@ -21,7 +21,45 @@ export function partOne(input: ReturnType<typeof parse>): number {
   return steps / 2
 }
 
-export function partTwo(input: ReturnType<typeof parse>) {}
+export function partTwo(input: ReturnType<typeof parse>): number {
+  let visited = new Set<string>()
+  const start = findStartLocation(input)
+  visited.add(strCoord(start))
+  let next = getFirstDirectionFromStart(input, start)
+  let heading = getDirection(start, next)
+
+  while (next != start) {
+    let current = next
+    visited.add(strCoord(current))
+    if (current.X == start.X && current.Y == start.Y) {
+      break
+    }
+    next = getNextCoord(input, current, heading)
+    heading = getDirection(current, next)
+  }
+
+  let surroundedCount = 0
+  for (let i = 0; i < input.length; i++) {
+    let isInside = false
+    for (let j = 0; j < input[i].length; j++) {
+      if (!visited.has(strCoord({X: j, Y: i}))) {
+        if (isInside) {
+          surroundedCount++
+        }
+      } else {
+        if (input[i][j] == '|' || input[i][j] == '7' || input[i][j] == 'F') {
+          isInside = !isInside
+        }
+      }
+    }
+  }
+
+  return surroundedCount
+}
+
+export function strCoord(coord: Coordinate): string {
+  return `${coord.X}-${coord.Y}`
+}
 
 export type Coordinate = {
   X: number
