@@ -42,7 +42,7 @@ export function partTwo(input: ReturnType<typeof parse>): number {
   for (let i = 0; i < input.length; i++) {
     let isInside = false
     for (let j = 0; j < input[i].length; j++) {
-      if (!visited.has(strCoord({X: j, Y: i}))) {
+      if (!visited.has(strCoord({ X: j, Y: i }))) {
         if (isInside) {
           surroundedCount++
         }
