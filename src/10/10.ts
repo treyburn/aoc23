@@ -27,6 +27,7 @@ export function partTwo(input: ReturnType<typeof parse>): number {
   visited.add(strCoord(start))
   let next = getFirstDirectionFromStart(input, start)
   let heading = getDirection(start, next)
+  const initialHeading = heading
 
   while (next != start) {
     let current = next
@@ -38,6 +39,20 @@ export function partTwo(input: ReturnType<typeof parse>): number {
     heading = getDirection(current, next)
   }
 
+  // replace the 'S' char with something that won't throw off the p2 solution
+  if (initialHeading == Direction.North && heading == Direction.North) {
+    input[start.Y][start.X] = '|'
+  }
+
+  if (initialHeading == Direction.West && heading == Direction.North) {
+    input[start.Y][start.X] = '7'
+  }
+
+  if (initialHeading == Direction.East && heading == Direction.North) {
+    input[start.Y][start.X] = 'F'
+  }
+
+  // now we use rays to determine if an area is inside our loop or not
   let surroundedCount = 0
   for (let i = 0; i < input.length; i++) {
     let isInside = false
