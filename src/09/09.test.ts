@@ -1,5 +1,12 @@
-import {describe, expect, test} from 'bun:test'
-import {derive, deriveNext, derivePrevious, parse, partOne, partTwo} from "@/09/09.ts";
+import { describe, expect, test } from 'bun:test'
+import {
+  derive,
+  deriveNext,
+  derivePrevious,
+  parse,
+  partOne,
+  partTwo
+} from '@/09/09.ts'
 
 describe('Day 9', () => {
   const testInputText = `0 3 6 9 12 15
@@ -16,9 +23,9 @@ describe('Day 9', () => {
 
   describe('derive next', () => {
     const tests = [
-      {Name: 'first', Input: testInput[0], Want: 18},
-      {Name: 'second', Input: testInput[1], Want: 28},
-      {Name: 'third', Input: testInput[2], Want: 68},
+      { Name: 'first', Input: testInput[0], Want: 18 },
+      { Name: 'second', Input: testInput[1], Want: 28 },
+      { Name: 'third', Input: testInput[2], Want: 68 }
     ]
 
     tests.map(t => {
@@ -36,9 +43,9 @@ describe('Day 9', () => {
 
   describe('derive previous', () => {
     const tests = [
-      {Name: 'first', Input: testInput[0], Want: -3},
-      {Name: 'second', Input: testInput[1], Want: 0},
-      {Name: 'third', Input: testInput[2], Want: 5},
+      { Name: 'first', Input: testInput[0], Want: -3 },
+      { Name: 'second', Input: testInput[1], Want: 0 },
+      { Name: 'third', Input: testInput[2], Want: 5 }
     ]
 
     tests.map(t => {
@@ -47,7 +54,7 @@ describe('Day 9', () => {
       })
     })
   })
-  
+
   test('Part Two', () => {
     const wantOutcome = 2
 

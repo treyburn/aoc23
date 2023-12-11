@@ -1,7 +1,7 @@
 export function parse(input: string): number[][] {
-  return input.split('\n')
-      .map(line => line.split(/\s/)
-          .map(str => parseInt(str)))
+  return input
+    .split('\n')
+    .map(line => line.split(/\s/).map(str => parseInt(str)))
 }
 
 export function partOne(input: ReturnType<typeof parse>): number {
