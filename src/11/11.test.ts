@@ -1,13 +1,15 @@
 import { describe, expect, test } from 'bun:test'
 import {
   buildPairs,
-  buildUniverse, Col,
+  buildUniverse,
+  Col,
   expandUniverse,
   findEmptyFields,
   manhattanDistance,
   parse,
   partOne,
-  processUniverseExpandedBy, Row
+  processUniverseExpandedBy,
+  Row
 } from '@/11/11.ts'
 
 describe('Day 11', () => {
