@@ -6,7 +6,7 @@ export function partOne(input: ReturnType<typeof parse>): number {
   return processUniverseExpandedBy(input, 1)
 }
 
-export function partTwo(input: ReturnType<typeof parse>) {
+export function partTwo(input: ReturnType<typeof parse>): number {
   return processUniverseExpandedBy(input, 1000000)
 }
 
