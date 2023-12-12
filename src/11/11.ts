@@ -36,8 +36,8 @@ export function expandUniverse(
   universe: Galaxy[],
   increment: number = 1
 ): Galaxy[] {
-  const colsToExpand = findEmptyCols(universe)
-  const rowsToExpand = findEmptyRows(universe)
+  const colsToExpand = findEmptyFields(universe, Col)
+  const rowsToExpand = findEmptyFields(universe, Row)
 
   colsToExpand.reverse().map(col => {
     universe.map(galaxy => {
@@ -58,34 +58,29 @@ export function expandUniverse(
   return universe
 }
 
-export function findEmptyCols(universe: Galaxy[]): number[] {
-  let emptyCols: number[] = []
-  let knownCols = new Set<number>()
+export function findEmptyFields(universe: Galaxy[], field: Field): number[] {
+  let emptyFields: number[] = []
+  let knownFields = new Set<number>()
 
-  universe.map(galaxy => knownCols.add(galaxy.X))
+  universe.map(galaxy => knownFields.add(field(galaxy)))
 
   for (let i = 0; i < universe.length; i++) {
-    if (!knownCols.has(i)) {
-      emptyCols.push(i)
+    if (!knownFields.has(i)) {
+      emptyFields.push(i)
     }
   }
 
-  return emptyCols
+  return emptyFields
 }
 
-export function findEmptyRows(universe: Galaxy[]): number[] {
-  let emptyRows: number[] = []
-  let knownRows = new Set<number>()
+export type Field = (Galaxy) => number
 
-  universe.map(galaxy => knownRows.add(galaxy.Y))
+export function Row(g: Galaxy): number {
+  return g.Y
+}
 
-  for (let i = 0; i < universe.length; i++) {
-    if (!knownRows.has(i)) {
-      emptyRows.push(i)
-    }
-  }
-
-  return emptyRows
+export function Col(g: Galaxy): number {
+  return g.X
 }
 
 export type GalacticPair = {

@@ -1,14 +1,13 @@
 import { describe, expect, test } from 'bun:test'
 import {
   buildPairs,
-  buildUniverse,
+  buildUniverse, Col,
   expandUniverse,
-  findEmptyCols,
-  findEmptyRows,
+  findEmptyFields,
   manhattanDistance,
   parse,
   partOne,
-  processUniverseExpandedBy
+  processUniverseExpandedBy, Row
 } from '@/11/11.ts'
 
 describe('Day 11', () => {
@@ -63,13 +62,13 @@ describe('Day 11', () => {
     test('findEmptyCols', () => {
       const wantCols = [2, 5, 8]
 
-      expect(findEmptyCols(testUniverseUnexpanded)).toEqual(wantCols)
+      expect(findEmptyFields(testUniverseUnexpanded, Col)).toEqual(wantCols)
     })
 
     test('findEmptyRows', () => {
       const wantRows = [3, 7]
 
-      expect(findEmptyRows(testUniverseUnexpanded)).toEqual(wantRows)
+      expect(findEmptyFields(testUniverseUnexpanded, Row)).toEqual(wantRows)
     })
 
     test('expandUniverse', () => {
